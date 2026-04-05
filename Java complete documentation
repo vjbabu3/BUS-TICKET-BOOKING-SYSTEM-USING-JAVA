@@ -1,0 +1,103 @@
+# QuickBus Bus Booking Application Documentation
+
+Welcome to the **QuickBus** (formerly stylized as Abhibus) project documentation. QuickBus is a high-performance, aesthetically pleasing Java Swing desktop application designed for modern bus ticket booking and travel management.
+
+---
+
+## 🏗️ Project Architecture
+
+The application follows a clean, modular architecture inspired by the **Model-View-DAO** pattern, ensuring easy maintainability and scalability.
+
+### 1. Data Model (`com.bus.model`)
+Contains pure Java objects (POJOs) representing the core entities of the system:
+- **`User`**: Manages user account details (ID, Name, Email, Role).
+- **`Route`**: Defines bus journeys (Source, Destination, Bus Number, Price, Departure Time).
+- **`Booking`**: Represents a ticket (Passenger details, Seat Number, Travel Date, Payment status).
+
+### 2. Data Access Layer (`com.bus.dao`)
+Handles all JDBC interactions with the MySQL database:
+- **`UserDAO`**: Handles registration and login authentication.
+- **`RouteDAO`**: Manages bus route availability and searching.
+- **`BookingDAO`**: Manages ticket reservations and seat locking.
+
+### 3. View & UI Layer (`com.bus.view`)
+A rich Swing-based UI utilizing `CardLayout` for seamless screen transitions:
+- **`MainFrame`**: The central controller that orchestrates all panels.
+- **`PanelTransitionManager`**: Handles smooth fade-in/fade-out animations between screens.
+- **`AppModules`**: A configuration registry to enable or disable specific features globally.
+- **`ThemeManager`**: Controls the application's visual style, supporting both **Dark** and **Light** modes via `UIManager`.
+
+---
+
+## 🗄️ Database Schema
+
+The application uses a MySQL database named `bus_booking`.
+
+### Tables:
+1. **`users`**: Stores client and admin credentials.
+2. **`routes`**: Catalog of available bus services across major Indian cities.
+3. **`bookings`**: Records all ticket transactions with a unique constraint on `(route_id, seat_number, travel_date)` to prevent double bookings.
+
+> [!NOTE]
+> The database initialization script can be found at `src/DatabaseSetup.sql`.
+
+---
+
+## ✨ Key Features
+
+### 🔐 User Experience
+- **Login/SignUp**: Secure authentication for users and administrators.
+- **Search Engine**: Real-time filtering for buses by source and destination.
+- **Seat Mapping**: Interactive grid for seat selection with real-time availability checking.
+
+### 🚌 Travel Management
+- **My Bookings**: A personalized dashboard for users to view their upcoming journeys.
+- **Cancellation**: One-click ticket cancellation and refund simulation.
+- **Live Tracker**: A pulsing live tracking simulation to monitor bus locations.
+
+### 🛠️ Admin Capabilities
+- **Admin Dashboard**: Overview of system statistics (to be expanded).
+- **Route Management**: Add or remove bus routes dynamically.
+
+---
+
+## 🎨 Design & Aesthetics
+QuickBus is designed with a **premium, dark-themed aesthetic** (default) featuring:
+- **Glassmorphism**: Subtle translucent effects on overlays.
+- **Modern Palettes**: Slate, Indigo, and Emerald accents.
+- **Responsive Layouts**: Designed to look great at 1200x800 resolution.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites:
+- **Java JDK 8+** (Recommended JDK 17)
+- **MySQL Server**
+- **JDBC Driver** (`mysql-connector-j-8.x.jar`)
+
+### Setup:
+1. Run the `DatabaseSetup.sql` script in your MySQL instance.
+2. Configure database credentials in `com.bus.util.DBConnection`.
+3. Compile and Run `com.bus.view.MainFrame.java`.
+
+---
+
+## 📂 Project Structure Overview
+
+```text
+d:/JAVA BUILDING/
+├── bin/                  # Compiled .class files
+├── lib/                  # External libraries (JDBC)
+└── src/
+    ├── DatabaseSetup.sql # DB Schema
+    └── com/bus/
+        ├── dao/          # Database interaction logic
+        ├── model/        # Entity classes
+        ├── util/         # DB Connection & Configuration
+        └── view/         # UI Panels and Styling
+```
+
+---
+
+*This documentation is generated to provide a holistic view of the project for developers and stakeholders.*
